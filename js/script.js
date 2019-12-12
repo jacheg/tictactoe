@@ -1,7 +1,21 @@
+var counter = 0;
+var gameOver = false;
 
+function performLogic(button, tile){
+  counter++;
 
+  if((counter % 2) == 0){
+    $(tile).html("x");
+  } else{
+    $(tile).html("o");
+  }
 
-
+  if(counter == 9){
+    $("h1").html("It's a draw!");
+    $("body").css("background-color", "yellow");
+    gameOver = true;
+  }
+}
 
 
 
