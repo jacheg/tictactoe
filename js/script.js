@@ -3,15 +3,13 @@ var gameOver = false;
 
 function performLogic(button, tile){
   counter++;
-  if(gameOver == false){
+  if(gameOver === false){
     if((counter % 2) == 0){
       $(tile).text("x");
-      if(tile1 == tile2){
-        $("body").css("background-color", "yellow");
-      }
     } else{
       $(tile).text("o");
     }
+    checkAllWin();
   }
 
   if(counter == 9){
@@ -22,17 +20,21 @@ function performLogic(button, tile){
 }
 
 function check3(tile1, tile2, tile3){
-  if((tile1 == tile2) && (tile2 == tile3)){
+  console.log($(tile1).val());
+  console.log($(tile2).val());
+  console.log($(tile3).val());
+  if(($(tile1).val() == $(tile2).val()) && ($(tile2).val() == $(tile3).val())){
+    console.log("after check3");
     return true;
   }
   return false;
 }
 
 function checkVerticalWin(){
-  if(check3(tile1, tile4, tile7)){
+  if(check3("#tile1", "#tile4", "#tile7")){
+    console.log("first vet");
+    $("h1").html("x loses!!");
     return true;
-    gameOver = true;
-    $("h1").html("x wins!!");
   } else if(check3(tile2, tile5, tile8)){
     return true;
   } else if(check3(tile3, tile6, tile9)){
@@ -60,16 +62,15 @@ function checkDiagonalWin(){
 return false;
 }
 
-// function checkAllWin(){
-//   if(checkVerticalWin() || checkHorizontalWin() || checkDiagonalWin){
-//     gameOver = true;
-//     $("h1").html("x wins!!");
-//   }
-// }
+function checkAllWin(){
+  if(checkVerticalWin() || checkHorizontalWin() || checkDiagonalWin()){
+    gameOver = true;
+  }
+}
 
 
 $("#button1").click(function() {
-    performLogic("#button1","#tile1");
+    performLogic("#button1", "#tile1");
 });
 
 $("#button2").click(function() {
@@ -81,7 +82,7 @@ $("#button3").click(function() {
 });
 
 $("#button4").click(function() {
-    performLogic("#button4","#tile4");
+    performLogic("#button4", $("#tile4").val());
 });
 
 $("#button5").click(function() {
@@ -93,7 +94,7 @@ $("#button6").click(function() {
 });
 
 $("#button7").click(function() {
-    performLogic("#button7","#tile7");
+    performLogic("#button7", $("#tile7").val());
 });
 
 $("#button8").click(function() {
